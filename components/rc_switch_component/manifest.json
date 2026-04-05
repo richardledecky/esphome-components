@@ -1,0 +1,9 @@
+{
+  "domain": "rc_switch_component",
+  "name": "RC Switch Component",
+  "version": "1.0.0",
+  "codegen": true,
+  "dependencies": [],
+  "requirements": [],
+  "homeassistant": "2024.0.0"
+}
