@@ -5,12 +5,10 @@ namespace rc_switch_component {
 
 class RCSwitchTransmitter : public Component {
  public:
-  void setup() override {}
-  void loop() override {}
-  void send_code(uint32_t code) {
-    ESP_LOGD("rc_switch", "Sending code: %u", code);
-    // sem príde kód pre vysielanie RF
-  }
+  void setup() override;
+  void loop() override;
+
+  void send_code(uint32_t code);
 };
 
 class SendRCSwitchAction : public Action {
@@ -18,11 +16,7 @@ class SendRCSwitchAction : public Action {
   RCSwitchTransmitter* parent;
   uint32_t code;
 
-  void play(uint32_t) override {
-    if (parent != nullptr) {
-      parent->send_code(code);
-    }
-  }
+  void play(int repetitions) override;
 };
 
 }  // namespace rc_switch_component
