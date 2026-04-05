@@ -1,5 +1,5 @@
 { 
-  "domain": "rc_switch_component", 
+  "domain": "domain": "rc_switch", 
   "name": "RC Switch Component", 
   "version": "1.0", 
   "dependencies": [], 
