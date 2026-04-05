@@ -1,6 +1,7 @@
 {
-  "esphome": ">=2026.0.0",
+  "name": "rc_switch_component",
+  "version": "1.0",
   "dependencies": [],
   "codeowners": ["@richardledecky"],
-  "version": "1.0.0"
+  "requirements": []
 }
