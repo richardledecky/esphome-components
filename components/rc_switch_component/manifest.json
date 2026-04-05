@@ -2,5 +2,7 @@
   "domain": "rc_switch_component",
   "name": "RC Switch Component",
   "version": "1.0.0",
-  "codegen": true
+  "codegen": true,
+  "dependencies": [],
+  "requirements": []
 }
