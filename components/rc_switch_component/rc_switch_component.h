@@ -13,15 +13,22 @@ class SendRCSwitchAction : public Action<Ts...> {
   void set_code(uint32_t code) { code_ = code; }
   void set_gpio(int gpio) { gpio_ = gpio; }
 
-  void play(Ts... x) override {
+  void play(const Ts &...x) override {
     RCSwitch sw;
+
     sw.enableTransmit(gpio_);
+
+    // 🔥 dôležité nastavenia
+    sw.setProtocol(11);        // podľa tvojho logu
+    sw.setPulseLength(716);   // podľa tvojho logu
+    sw.setRepeatTransmit(8);  // 🔥 spoľahlivosť
+
     sw.send(code_, 24);
   }
 
  protected:
   uint32_t code_{0};
-  int gpio_{23};
+  int gpio_{4};   // ← radšej default správny pin
 };
 
 }  // namespace rc_switch_component
