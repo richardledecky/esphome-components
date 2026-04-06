@@ -19,9 +19,9 @@ class SendRCSwitchAction : public Action<Ts...> {
     sw.enableTransmit(gpio_);
 
     // 🔥 dôležité nastavenia
-    sw.setProtocol(11);        // podľa tvojho logu
-    sw.setPulseLength(716);   // podľa tvojho logu
-    sw.setRepeatTransmit(8);  // 🔥 spoľahlivosť
+    sw.setProtocol(1);        // podľa tvojho logu
+    sw.setPulseLength(350);   // podľa tvojho logu
+    sw.setRepeatTransmit(20);  // 🔥 spoľahlivosť
 
     sw.send(code_, 24);
   }
