@@ -1,5 +1,7 @@
 {
   "domain": "rc_switch_component",
   "name": "RC Switch Component",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "codeowners": ["@richardledecky"],
+  "dependencies": []
 }
