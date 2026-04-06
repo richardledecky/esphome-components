@@ -32,3 +32,5 @@ async def rc_switch_send_to_code(config, action_id, template_arg, args):
     cg.add(var.set_gpio(config[CONF_GPIO]))
     cg.add_library("sui77/rc-switch", None)
     return var
+_LOGGER = logging.getLogger(__name__)
+_LOGGER.info("rc_switch_component __init__.py loaded!")
