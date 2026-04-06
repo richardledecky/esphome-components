@@ -21,7 +21,7 @@ class SendRCSwitchAction : public Action<Ts...> {
     // 🔥 dôležité nastavenia
     sw.setProtocol(1);        // podľa tvojho logu
     sw.setPulseLength(350);   // podľa tvojho logu
-    sw.setRepeatTransmit(20);  // 🔥 spoľahlivosť
+    sw.setRepeatTransmit(1);  // 🔥 spoľahlivosť
 
     sw.send(code_, 24);
   }
