@@ -1,38 +1,53 @@
-import logging
-import esphome.codegen as cg
-import esphome.config_validation as cv
-from esphome.const import CONF_ID
-from esphome import automation
+#pragma once
 
-_LOGGER = logging.getLogger(__name__)
+#include "esphome/core/component.h"
+#include "esphome/core/automation.h"
+#include <RCSwitch.h>
 
-CODEOWNERS = ["@richardledecky"]
-DEPENDENCIES = []
+namespace esphome {
+namespace rc_switch_component {
 
-rc_switch_ns = cg.esphome_ns.namespace("rc_switch_component")
+class RCSwitchComponent : public Component {
+ public:
+  void set_gpio(int gpio) { gpio_ = gpio; }
 
-Action = cg.esphome_ns.class_("Action")
+  void setup() override {
+    sw_.enableTransmit(gpio_);
+    sw_.setProtocol(1);
+    sw_.setPulseLength(350);
+    sw_.setRepeatTransmit(10);
+  }
 
-SendRCSwitchAction = rc_switch_ns.class_("SendRCSwitchAction", Action)
+  void send(uint32_t code, uint8_t length) {
+    sw_.send(code, length);
+  }
 
-CONF_CODE = "code"
-CONF_GPIO = "gpio"
+ protected:
+  RCSwitch sw_;
+  int gpio_{23};
+};
 
-CONFIG_SCHEMA = cv.Schema({})
+// ================= ACTION =================
 
-async def to_code(config):
-    pass
+template<typename... Ts>
+class SendRCSwitchAction : public Action<Ts...> {
+ public:
+  void set_parent(RCSwitchComponent *parent) { parent_ = parent; }
+  void set_code(uint32_t code) { code_ = code; }
+  void set_gpio(int gpio) { gpio_ = gpio; }
 
-RC_SWITCH_SEND_SCHEMA = cv.Schema({
-    cv.GenerateID(): cv.declare_id(SendRCSwitchAction),
-    cv.Required(CONF_CODE): cv.positive_int,
-    cv.Optional(CONF_GPIO, default=23): cv.int_,
-})
+  void play(Ts... x) override {
+    if (parent_ == nullptr)
+      return;
 
-@automation.register_action("rc_switch_component.send", SendRCSwitchAction, RC_SWITCH_SEND_SCHEMA)
-async def rc_switch_send_to_code(config, action_id, template_arg, args):
-    var = cg.new_Pvariable(action_id, template_arg)
-    cg.add(var.set_code(config[CONF_CODE]))
-    cg.add(var.set_gpio(config[CONF_GPIO]))
-    cg.add_library("sui77/rc-switch", None)
-    return var
+    parent_->send(code_, 24);
+  }
+
+ protected:
+  RCSwitchComponent *parent_{nullptr};
+  uint32_t code_{0};
+  int gpio_{23};
+};
+
+}  // namespace rc_switch_component
+}  // namespace esphome
