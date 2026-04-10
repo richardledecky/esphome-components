@@ -7,7 +7,7 @@ from esphome import automation
 _LOGGER = logging.getLogger(__name__)
 
 CODEOWNERS = ["@richardledecky"]
-DEPENDENCIES = []
+DEPENDENCIES = ["rc_switch_component"]
 
 rc_switch_ns = cg.esphome_ns.namespace("rc_switch_component")
 
